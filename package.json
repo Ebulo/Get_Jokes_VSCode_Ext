@@ -20,6 +20,10 @@
 			{
 				"command": "blog-search-ex.searchData",
 				"title": "Get Jokes"
+			},
+			{
+				"command": "blog-search-ex.openWindow",
+				"title": "Open Window"
 			}
 		]
 	},

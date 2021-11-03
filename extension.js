@@ -96,6 +96,22 @@ async function activate(context) {
 		// vscode.window.showInformationMessage('Hi I am initiating..!');
 	});
 
+	let op = vscode.commands.registerCommand(
+		"blog-search-ex.openWindow",
+		async function () {
+
+			console.log("Command registered!");
+
+			vscode.window.activeColorThemem = vscode.ThemeColor.name;
+			vscode.window.createWebviewPanel("string", "New Page", vscode.ViewColumn | {
+				viewColumn: vscode.ViewColumn,
+				preserveFocus: true,
+			});
+
+			// vscode.window.showTextDocument();
+	
+		});
+
 	context.subscriptions.push(disposable);
 }
 
