@@ -35,11 +35,42 @@ async function activate(context) {
 		'blog-search-ex.searchData', 
 		async function () {
 		// The code you place here will be executed every time your command is executed
+			var types = [
+				// {label: "Any", detail: "Any"},
+				{label: "Any"},
+				// {label: "Programming", detail: "Programming"},
+				{label: "Programming"},
+				// {label: "Dark", detail: "Dark"},
+				{label: "Dark"},
+				// {label: "Pun", detail: "Pun"}
+				{label: "Pun"}
+			];
+
+			const choose_type = await vscode.window.showQuickPick(types, {
+				matchOnDetail: true,
+			})
+
 			var jokes = await axios.get("https://v2.jokeapi.dev/joke/Programming,Dark,Pun?amount=10");
+
+			// console.log("Choose Type: " , choose_type);
+			if (choose_type === undefined) {
+				jokes = await axios.get("https://v2.jokeapi.dev/joke/Programming,Dark,Pun?amount=10");
+			} else if (choose_type['label'] == "Programming") {
+				jokes = await axios.get("https://v2.jokeapi.dev/joke/Programming?amount=10");
+			} else if (choose_type['label'] == "Dark") {
+				jokes = await axios.get("https://v2.jokeapi.dev/joke/Dark?amount=10");
+			} else if (choose_type['label'] == "Any") {
+				jokes = await axios.get("https://v2.jokeapi.dev/joke/Any?amount=10");
+			} else if (choose_type['label'] == "Pun") {
+				jokes = await axios.get("https://v2.jokeapi.dev/joke/Pun?amount=10");
+			} else {
+				console.log("Yo");
+			}
+
 			jokes = jokes.data.jokes;
 			
 			var jokes_ = jokes.map( joke => {
-				console.log(joke);
+				// console.log(joke);
 				if (joke.joke === undefined) {
 					return {
 						label: joke.setup,
